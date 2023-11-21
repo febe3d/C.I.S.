@@ -1,0 +1,30 @@
+
+body {
+    align-items: center;
+    align-content: center;
+    vertical-align: center;
+    min-height: 100vh;
+    height: 100vh;
+    }
+
+    test{
+        align-self: center;
+    }
+
+    a {
+        color: #ffc107;
+    }
+    
+    .form-signin {
+        max-width: 330px;
+        padding: 1rem;
+    }
+
+    main {
+        width: 100%;
+        align-items: center;
+        align-content: center;
+        vertical-align: center;
+        min-height: 100vh;
+        height: 100vh;
+    }
