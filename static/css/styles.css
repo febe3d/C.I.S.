@@ -7,8 +7,16 @@ body {
     height: 100vh;
     }
 
-    test{
+    .vert-spacer{
+        height: 4px;
+    }
+
+    .test{
+        display: grid;
         align-self: center;
+        align-content: center;
+        vertical-align: center;
+        height: 100%;
     }
 
     a {
@@ -24,7 +32,7 @@ body {
         width: 100%;
         align-items: center;
         align-content: center;
-        vertical-align: center;
-        min-height: 100vh;
+        vertical-align: middle;
         height: 100vh;
+        margin: 0px;
     }
