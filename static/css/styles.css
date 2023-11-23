@@ -36,3 +36,16 @@ body {
         height: 100vh;
         margin: 0px;
     }
+
+    .header-centered{
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    .internalizedlist{
+        height: 50vh;
+        background-color: rgb(29, 29, 29);
+        margin-bottom: 12px;
+        border-radius: 8px
+    }
