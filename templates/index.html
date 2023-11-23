@@ -1,0 +1,16 @@
+<div class="container">
+  <h1 class="heading">Test</h1>
+  <p class="description">This is a Test.</p>
+   {% for test in test %}
+
+
+    <div class="title">{{test.title}} <span class="release_date">({{test.year}})</span></div>
+
+        <p class="overview">
+            {{test.description}}
+        </p>
+
+      </div>
+    </div>
+
+  {% endfor %}

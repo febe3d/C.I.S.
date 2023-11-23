@@ -23,6 +23,7 @@ class Test(db.Model):
     description = db.Column(db.String(500), nullable=False)
 
 with app.app_context():
+    db.drop_all()
     db.create_all()
 
 new_test = Test(
@@ -40,7 +41,7 @@ with app.app_context():
 def home():
     result = db.session.execute(db.select(Test).order_by(Test.id))
     all_tests = result.scalars()
-    return render_template("login.html", test=all_tests)
+    return render_template("index.html", test=all_tests)
 
 
 if __name__ == '__main__':
