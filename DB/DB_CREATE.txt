@@ -10,9 +10,9 @@ CREATE TABLE [Konto] (
   [Inhaber] INTEGER NOT NULL,
   [Kontotyp] VARCHAR(20),
   [Kontonummer] VARCHAR(50) NOT NULL,
-  [Land] VARCHAR(50),
-  [IBAN] INTEGER NOT NULL,
-  [Betrag] FLOAT NOT NULL,
+  [Land] VARCHAR(3) NOT NULL,
+  [IBAN] VARCHAR(34) NOT NULL,
+  [Betrag] DECIMAL NOT NULL,
   CONSTRAINT [FK_Konto.Inhaber]
     FOREIGN KEY ([Inhaber])
       REFERENCES [KontoInhaber]([KontoInhaber_ID]),
@@ -22,8 +22,8 @@ CREATE TABLE [Konto] (
 CREATE TABLE [Projekt] (
   [ProjektID] INTEGER NOT NULL,
   [Name] VARCHAR(50) NOT NULL,
-  [Eingeplantes_Budget] FLOAT NOT NULL,
-  [Eingetroffenes_Budget] FLOAT NOT NULL,
+  [Eingeplantes_Budget] DECIMAL NOT NULL,
+  [Eingetroffenes_Budget] DECIMAL NOT NULL,
   [KontoID] INTEGER NOT NULL,
   CONSTRAINT [FK_Konto.Konto_ID]
     FOREIGN KEY ([KontoID])
