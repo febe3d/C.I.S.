@@ -1,0 +1,32 @@
+CREATE TABLE [KontoInhaber] (
+  [KontoInhaber_ID] INTEGER NOT NULL,
+  [Vorname] VARCHAR(50) NOT NULL,
+  [Nachname] VARCHAR(50) NOT NULL,
+  PRIMARY KEY (KontoInhaber_ID)
+);
+
+CREATE TABLE [Konto] (
+  [Konto_ID] INTEGER NOT NULL,
+  [Inhaber] INTEGER NOT NULL,
+  [Kontotyp] VARCHAR(20),
+  [Kontonummer] VARCHAR(50) NOT NULL,
+  [Land] VARCHAR(50),
+  [IBAN] INTEGER NOT NULL,
+  [Betrag] FLOAT NOT NULL,
+  CONSTRAINT [FK_Konto.Inhaber]
+    FOREIGN KEY ([Inhaber])
+      REFERENCES [KontoInhaber]([KontoInhaber_ID]),
+  PRIMARY KEY (Konto_ID)
+);
+
+CREATE TABLE [Projekt] (
+  [ProjektID] INTEGER NOT NULL,
+  [Name] VARCHAR(50) NOT NULL,
+  [Eingeplantes_Budget] FLOAT NOT NULL,
+  [Eingetroffenes_Budget] FLOAT NOT NULL,
+  [KontoID] INTEGER NOT NULL,
+  CONSTRAINT [FK_Konto.Konto_ID]
+    FOREIGN KEY ([KontoID])
+      REFERENCES [Konto]([Konto_ID]),
+  PRIMARY KEY (ProjektID)
+);

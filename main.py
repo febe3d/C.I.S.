@@ -41,7 +41,7 @@ with app.app_context():
 def home():
     result = db.session.execute(db.select(Test).order_by(Test.id))
     all_tests = result.scalars()
-    return render_template("index.html", test=all_tests)
+    return render_template("searchMenu.html", test=all_tests)
 
 
 if __name__ == '__main__':
