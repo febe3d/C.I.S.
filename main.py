@@ -30,7 +30,6 @@ new_test = Test(
     title="Test",
     year=2002,
     description="Test.",
-
 )
 
 with app.app_context():
