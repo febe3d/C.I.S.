@@ -1,7 +1,7 @@
 CREATE TABLE [Gehalt] (
   [ID] INTEGER NOT NULL,
   [Durchschn_Gehalt] FLOAT NOT NULL,
-  [Durchsch_Boni] FLOAT NOT NULL,
+  [Durchschn_Boni] FLOAT NOT NULL,
   PRIMARY KEY (ID)
 );
 
@@ -31,7 +31,6 @@ CREATE TABLE [Geldfluss] (
   [Waehrung] VARCHAR(3) NOT NULL,
   [EmpfaengerKonto] INTEGER NOT NULL,
   [AufraggeberKonto] INTEGER NOT NULL,
-  [IBAN] INTEGER NOT NULL,
   [Betrag] FLOAT NOT NULL,
   FOREIGN KEY ([EmpfaengerKonto])
       REFERENCES [Konto]([ID]),
@@ -69,7 +68,7 @@ CREATE TABLE [Mitarbeiter] (
     FOREIGN KEY ([Projekzugehoerigkeit])
       REFERENCES [Projekt]([ID]),
     FOREIGN KEY ([Beruf])
-      REFERENCES [Beruf]([Beruf]),
+      REFERENCES [Beruf]([ID]),
     FOREIGN KEY ([Gehalt])
       REFERENCES [Gehalt]([ID]),
     FOREIGN KEY ([KontoInhaber])

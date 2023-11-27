@@ -19,13 +19,12 @@ VALUES
 
 INSERT INTO Besitzer_Eigentuemer_Verwandschaft ( Besitzer, Eigentuemer )
 VALUES 
-	( 1, 1)
-	( 2, 2)
+	( 1, 1),
+	( 2, 2),
 	( 3, 3);
 
-INSERT INTO Kennzeichen ( ID, Besitzer, Fahrzeugtyp, Kennzeichen, Land, Eigentuemer)
+INSERT INTO Kennzeichen ( ID, Besitzer, Fahrzeugtyp, KennzeichenText, Land, Eigentuemer)
 VALUES 
 	( 1, 1, 3, 'XXX-993', 'ENG', 1),
 	( 2, 3, 1, 'HH-KB-2323', 'DEU', 3),
 	( 3, 2, 2, 'B-SM-2012', 'DEU', 2);
-
