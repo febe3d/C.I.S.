@@ -1,0 +1,78 @@
+CREATE TABLE [Gehalt] (
+  [ID] INTEGER NOT NULL,
+  [Durchschn_Gehalt] FLOAT NOT NULL,
+  [Durchsch_Boni] FLOAT NOT NULL,
+  PRIMARY KEY (ID)
+);
+
+CREATE TABLE [KontoInhaber] (
+  [ID] INTEGER NOT NULL,
+  [Vorname] VARCHAR(50) NOT NULL,
+  [Nachname] VARCHAR(50) NOT NULL,
+  PRIMARY KEY (ID)
+);
+
+CREATE TABLE [Konto] (
+  [ID] INTEGER NOT NULL,
+  [Inhaber] INTEGER NOT NULL,
+  [Kontotyp] VARCHAR(20),
+  [Kontonummer] VARCHAR(50) NOT NULL,
+  [Land] VARCHAR(3) NOT NULL,
+  [IBAN] VARCHAR(34) NOT NULL,
+  [Betrag] DECIMAL NOT NULL,
+    FOREIGN KEY ([Inhaber])
+      REFERENCES [KontoInhaber]([ID]),
+  PRIMARY KEY (ID)
+);
+
+CREATE TABLE [Geldfluss] (
+  [ID] INTEGER NOT NULL,
+  [Verwendungszweck] VARCHAR(255),
+  [Waehrung] VARCHAR(3) NOT NULL,
+  [EmpfaengerKonto] INTEGER NOT NULL,
+  [AufraggeberKonto] INTEGER NOT NULL,
+  [IBAN] INTEGER NOT NULL,
+  [Betrag] FLOAT NOT NULL,
+  FOREIGN KEY ([EmpfaengerKonto])
+      REFERENCES [Konto]([ID]),
+  FOREIGN KEY ([AufraggeberKonto])
+      REFERENCES [Konto]([ID]),
+  PRIMARY KEY (ID)
+);
+
+CREATE TABLE [Projekt] (
+  [ID] INTEGER NOT NULL,
+  [Konto] INTEGER NOT NULL,
+  [Name] VARCHAR(50) NOT NULL,
+  [Eingeplantes_Budget] DECIMAL NOT NULL,
+  [Eingetroffenes_Budget] DECIMAL NOT NULL,
+    FOREIGN KEY ([Konto])
+      REFERENCES [Konto]([ID]),
+  PRIMARY KEY (ID)
+);
+
+CREATE TABLE [Beruf] (
+  [ID] INTEGER NOT NULL,
+  [Gehalt] INTEGER NOT NULL,
+  [Berufname] VARCHAR(50) NOT NULL,
+    FOREIGN KEY ([Gehalt])
+      REFERENCES [Gehalt]([ID]),
+  PRIMARY KEY (ID)
+);
+
+CREATE TABLE [Mitarbeiter] (
+  [ID] INTEGER NOT NULL,
+  [Beruf] INTEGER NOT NULL,
+  [Projekzugehoerigkeit] INTEGER NULL,
+  [KontoInhaber] INTEGER NOT NULL,
+  [Gehalt] INTEGER NOT NULL,
+    FOREIGN KEY ([Projekzugehoerigkeit])
+      REFERENCES [Projekt]([ID]),
+    FOREIGN KEY ([Beruf])
+      REFERENCES [Beruf]([Beruf]),
+    FOREIGN KEY ([Gehalt])
+      REFERENCES [Gehalt]([ID]),
+    FOREIGN KEY ([KontoInhaber])
+      REFERENCES [KontoInhaber]([ID]),
+  PRIMARY KEY (ID)
+);

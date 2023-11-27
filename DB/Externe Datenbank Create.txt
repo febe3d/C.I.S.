@@ -1,0 +1,49 @@
+CREATE TABLE [Fahrzeugtyp] (
+  [Fahrzeugart] VARCHAR(50),
+  [Model] VARCHAR(50),
+  [Wert] FLOAT,
+  [Farbe] VARCHAR(30),
+  [ID] INTEGER NOT NULL,
+  PRIMARY KEY (ID)
+);
+
+CREATE TABLE [Eigentuemer] (
+  [ID] INTEGER NOT NULL,
+  [Vorname] VARCHAR(50) NOT NULL,
+  [Nachname] VARCHAR(50) NOT NULL,
+  PRIMARY KEY (ID)
+);
+
+CREATE TABLE [Besitzer] (
+  [ID] INTEGER NOT NULL,
+  [Vorname] VARCHAR(50) NOT NULL,
+  [Nachname] VARCHAR(50) NOT NULL,
+  [Besitzbeginn] date NOT NULL,
+  [Besitzende] date,
+  PRIMARY KEY (ID)
+);
+
+CREATE TABLE [Besitzer_Eigentuemer_Verwandschaft] (
+  [Besitzer] INTEGER NOT NULL,
+  [Eigentuemer] INTEGER NOT NULL,
+    FOREIGN KEY ([Eigentuemer])
+      REFERENCES [Eigentuemer]([ID]),
+    FOREIGN KEY ([Besitzer])
+      REFERENCES [Besitzer]([ID])
+);
+
+CREATE TABLE [Kennzeichen] (
+  [ID] INTEGER NOT NULL,
+  [Besitzer] INTEGER NOT NULL,
+  [Fahrzeugtyp] INTEGER,
+  [KennzeichenText] VARCHAR(50) NOT NULL,
+  [Land] VARCHAR(3),
+  [Eigentuemer] INTEGER NOT NULL,
+    FOREIGN KEY ([Besitzer])
+      REFERENCES [Besitzer]([ID]),
+    FOREIGN KEY ([Fahrzeugtyp])
+      REFERENCES [Fahrzeugtyp]([ID]),
+    FOREIGN KEY ([Eigentuemer])
+      REFERENCES [Eigentuemer]([ID]),
+  PRIMARY KEY (ID)
+);

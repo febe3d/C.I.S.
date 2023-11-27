@@ -1,0 +1,31 @@
+INSERT INTO Fahrzeugtyp ( Fahrzeugart, Model, Wert, Farbe, ID )
+VALUES 
+	( 'Personenkraftwagen', 'Mercedes', '50000.0', 'Schwarz', 1),
+	( 'Lastkraftwagen', 'MAN', '140000.0', 'Silber', 2),
+	( 'Boot', 'Lamborghini', '3000000.0', 'Schwarz', 3);
+
+INSERT INTO Eigentuemer ( ID, Vorname, Nachname )
+VALUES 
+	( 1, 'Max', 'Mustermann'),
+	( 2, 'Manfred', 'Müller'),
+	( 3, 'Klaus', 'Becker');
+
+INSERT INTO Besitzer ( ID, Vorname, Nachname, Besitzbeginn)
+VALUES 	( 1, 'Max', 'Mustermann', '24.04.2023');
+INSERT INTO Besitzer ( ID, Vorname, Nachname, Besitzbeginn, Besitzende)
+VALUES 
+	( 2, 'Susanne', 'Müller', '19.05.1999', '20.05.2020'),
+	( 3, 'Klaus', 'Becker', '20.05.2020', '23.11.2023');
+
+INSERT INTO Besitzer_Eigentuemer_Verwandschaft ( Besitzer, Eigentuemer )
+VALUES 
+	( 1, 1)
+	( 2, 2)
+	( 3, 3);
+
+INSERT INTO Kennzeichen ( ID, Besitzer, Fahrzeugtyp, Kennzeichen, Land, Eigentuemer)
+VALUES 
+	( 1, 1, 3, 'XXX-993', 'ENG', 1),
+	( 2, 3, 1, 'HH-KB-2323', 'DEU', 3),
+	( 3, 2, 2, 'B-SM-2012', 'DEU', 2);
+
