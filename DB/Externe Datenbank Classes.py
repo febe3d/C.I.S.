@@ -1,3 +1,6 @@
+from flask_sqlalchemy import SQLAlchemy
+db = SQLAlchemy()
+
 class Fahrzeugtyp(db.Model):
     ID = db.Column(db.Integer, primary_key=True)
     Fahrzeugart = db.Column(db.String(50))
