@@ -1,1 +1,3 @@
 /.venv
+/instance/dbext.db
+/instance/cisdb.db
