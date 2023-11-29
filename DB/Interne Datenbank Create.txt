@@ -66,6 +66,7 @@ CREATE TABLE [Mitarbeiter] (
   [Projekzugehoerigkeit] INTEGER NULL,
   [KontoInhaber] INTEGER NOT NULL,
   [Gehalt] INTEGER NOT NULL,
+  [Versicherungsnummer] VARCHAR(12) NOT NULL,
     FOREIGN KEY ([Projekzugehoerigkeit])
       REFERENCES [Projekt]([ID]),
     FOREIGN KEY ([Beruf])

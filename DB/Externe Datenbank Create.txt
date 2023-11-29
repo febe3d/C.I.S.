@@ -11,6 +11,7 @@ CREATE TABLE [Eigentuemer] (
   [ID] INTEGER NOT NULL,
   [Vorname] VARCHAR(50) NOT NULL,
   [Nachname] VARCHAR(50) NOT NULL,
+  [Versicherungsnummer] VARCHAR(12) NOT NULL,
   PRIMARY KEY (ID)
 );
 
@@ -20,6 +21,7 @@ CREATE TABLE [Besitzer] (
   [Nachname] VARCHAR(50) NOT NULL,
   [Besitzbeginn] date NOT NULL,
   [Besitzende] date,
+  [Versicherungsnummer] VARCHAR(12) NOT NULL,
   PRIMARY KEY (ID)
 );
 

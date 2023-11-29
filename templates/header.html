@@ -12,11 +12,10 @@
   </head>
   <header class="d-flex justify-content-center py-3">
     <ul class="nav nav-pills">
-      <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
-      <li class="nav-item"><a href="#" class="nav-link">Features</a></li>
-      <li class="nav-item"><a href="#" class="nav-link">Pricing</a></li>
-      <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>
-      <li class="nav-item"><a href="#" class="nav-link">About</a></li>
+      <li class="nav-item"><a href="/startseite" class="nav-link {% if active_page == 'startseite' %}active{% endif %}" aria-current="page">Startseite</a></li>
+      <li class="nav-item"><a href="/suche" class="nav-link {% if active_page == 'suche' %}active{% endif %}">Suche</a></li>
+      <li class="nav-item"><a href="/optionen" class="nav-link {% if active_page == 'optionen' %}active{% endif %}">Optionen</a></li>
+      <li class="nav-item"><a href="/" class="nav-link {% if active_page == 'home' %}active{% endif %}">Ausloggen</a></li>
     </ul>
   </header>
 </html>

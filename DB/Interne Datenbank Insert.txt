@@ -34,11 +34,11 @@ VALUES
     (1, 1, 'Anwalt'),
     (2, 2, 'FIAE');
 
-INSERT INTO Mitarbeiter(ID, Beruf, Projekzugehoerigkeit, KontoInhaber, Gehalt)
+INSERT INTO Mitarbeiter(ID, Beruf, Projekzugehoerigkeit, KontoInhaber, Gehalt, Versicherungsnummer)
 VALUES
-    (0, 2, 1, 2, 0),
-    (1, 1, 2, 1, 2),
-    (2, 0, 0, 0, 1);
+    (0, 2, 1, 2, 0, '01234567A891'),
+    (1, 1, 2, 1, 2, '01234567A892'),
+    (2, 0, 0, 0, 1, '01234567A899');
 
 INSERT INTO Verwandschaft(Verwandschaft1, Verwandschaft2)
 VALUES

@@ -19,10 +19,12 @@ class Besitzer(db.Model):
     Nachname = db.Column(db.String(50), nullable=False)
     Besitzbeginn = db.Column(db.Date, nullable=False)
     Besitzende = db.Column(db.Date)
+    Versicherungsnummer = db.Column(db.String(12), nullable=False)
 
 class Besitzer_Eigentuemer_Verwandschaft(db.Model):
     Besitzer = db.Column(db.Integer, db.ForeignKey("Eigentuemer.ID"), nullable=False)
     Eigentuemer = db.Column(db.Integer, db.ForeignKey("Besitzer.ID"), nullable=False)
+    Versicherungsnummer = db.Column(db.String(12), nullable=False)
 
 class Kennzeichen(db.Model):
     ID = db.Column(db.Integer, primary_key=True)
