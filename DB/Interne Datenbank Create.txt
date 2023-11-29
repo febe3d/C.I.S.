@@ -76,3 +76,21 @@ CREATE TABLE [Mitarbeiter] (
       REFERENCES [KontoInhaber]([ID]),
   PRIMARY KEY (ID)
 );
+
+CREATE TABLE [Verwandschaft] (
+  [Verwandschaft1] INTEGER NOT NULL,
+  [Verwandschaft2] INTEGER NOT NULL,
+    FOREIGN KEY ([Verwandschaft1])
+      REFERENCES [Mitarbeiter]([ID]),
+    FOREIGN KEY ([Verwandschaft2])
+      REFERENCES [Mitarbeiter]([ID])
+);
+
+CREATE TABLE [Gehaltbestimmung] (
+  [GehaltGeber] INTEGER NOT NULL,
+  [GehaltNehmer] INTEGER NOT NULL,
+    FOREIGN KEY ([GehaltGeber])
+      REFERENCES [Mitarbeiter]([ID]),
+    FOREIGN KEY ([GehaltNehmer])
+      REFERENCES [Mitarbeiter]([ID])
+);

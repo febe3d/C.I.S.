@@ -39,3 +39,13 @@ VALUES
     (0, 2, 1, 2, 0),
     (1, 1, 2, 1, 2),
     (2, 0, 0, 0, 1);
+
+INSERT INTO Verwandschaft(Verwandschaft1, Verwandschaft2)
+VALUES
+    (0, 2),
+    (2, 0);
+	
+INSERT INTO Gehaltbestimmung(GehaltGeber, GehaltNehmer)
+VALUES
+    (0, 1),
+    (0, 2);
