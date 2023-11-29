@@ -36,9 +36,9 @@ VALUES
 
 INSERT INTO Mitarbeiter(ID, Beruf, Projekzugehoerigkeit, KontoInhaber, Gehalt, Versicherungsnummer)
 VALUES
-    (0, 2, 1, 2, 0, 01234567A891),
-    (1, 1, 2, 1, 2, 01234567A892),
-    (2, 0, 0, 0, 1, 01234567A899);
+    (0, 2, 1, 2, 0, '01234567A891'),
+    (1, 1, 2, 1, 2, '01234567A892'),
+    (2, 0, 0, 0, 1, '01234567A899');
 
 INSERT INTO Verwandschaft(Verwandschaft1, Verwandschaft2)
 VALUES
