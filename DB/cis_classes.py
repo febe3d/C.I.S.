@@ -50,9 +50,11 @@ class Mitarbeiter(db.Model):
     Versicherungsnummer = db.Column(db.String(12), nullable=False)
 
 class Verwandschaft(db.Model):
+    ID = db.Column(db.Integer, primary_key=True)
     Verwandschaft1 = db.Column(db.Integer, db.ForeignKey("Mitarbeiter.ID"), nullable=False)
     Verwandschaft2 = db.Column(db.Integer, db.ForeignKey("Mitarbeiter.ID"), nullable=False)
 
 class Gehaltbestimmung(db.Model):
+    ID = db.Column(db.Integer, primary_key=True)
     GehaltGeber = db.Column(db.Integer, db.ForeignKey("Mitarbeiter.ID"), nullable=False)
     GehaltNehmer = db.Column(db.Integer, db.ForeignKey("Mitarbeiter.ID"), nullable=False)
