@@ -45,6 +45,7 @@ CREATE TABLE [Projekt] (
   [Name] VARCHAR(50) NOT NULL,
   [Eingeplantes_Budget] DECIMAL NOT NULL,
   [Eingetroffenes_Budget] DECIMAL NOT NULL,
+  [Datum_Geldeingang] date NOT NULL,
     FOREIGN KEY ([Konto])
       REFERENCES [Konto]([ID]),
   PRIMARY KEY (ID)
