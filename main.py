@@ -6,6 +6,7 @@ from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 import requests
 import DB.cis_classes
+import DB.ext_classes
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
@@ -22,10 +23,10 @@ db.init_app(app)
 
 @app.route("/")
 def home():
-    result = db.session.execute(db.select(DB.cis_classes.Beruf).order_by(DB.cis_classes.Beruf.ID))
-    Beruf = result.scalars()
-    result1 = db.session.execute(db.select(DB.cis_classes.Beruf.Berufname)).scalar()
-    print(result1)
+    print(db.session.execute(db.select(DB.cis_classes.Beruf).order_by(DB.cis_classes.Beruf.ID)).scalar())
+    print(db.session.execute(db.select(DB.ext_classes.Eigentuemer).order_by(DB.ext_classes.Eigentuemer.ID)).scalar())
+    
+    Beruf = db.session.execute(db.select(DB.cis_classes.Beruf).order_by(DB.cis_classes.Beruf.ID)).scalars()
     return render_template("resultatseite.html", Beruf=Beruf)
 
 @app.route("/startseite")
