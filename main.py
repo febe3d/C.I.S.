@@ -11,7 +11,12 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
 Bootstrap5(app)
 
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///cisdb.db'
+# db = SQLAlchemy()
+# db.init_app(app)
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///cisdb.db'
+app.config['SQLALCHEMY_BINDS'] = {'extern' : 'sqlite:///dbext.db',}
 db = SQLAlchemy()
 db.init_app(app)
 
@@ -19,7 +24,9 @@ db.init_app(app)
 def home():
     result = db.session.execute(db.select(DB.cis_classes.Beruf).order_by(DB.cis_classes.Beruf.ID))
     Beruf = result.scalars()
-    return render_template("login.html", Beruf=Beruf)
+    result1 = db.session.execute(db.select(DB.cis_classes.Beruf.Berufname)).scalar()
+    print(result1)
+    return render_template("resultatseite.html", Beruf=Beruf)
 
 @app.route("/startseite")
 def startseite():
@@ -38,4 +45,5 @@ def suche():
     return render_template("searchMenu.html", active_page='suche')
 
 if __name__ == '__main__':
+
     app.run(debug=True)
