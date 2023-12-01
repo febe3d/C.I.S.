@@ -76,16 +76,43 @@ def mitarbeiter_beruf_dif(mb_id):
     
     return __limit_score( 40*(__mitarbeiter_gehalt(mb_id)/beruf_gehalt) -0.5)
     
-def mitarbeiter_dif():
-    #Konto mit Mitarbeiter verknüpfen?
-    return False
+def mitarbeiter_dif(mb_id):
+    betrag = db.session.execute(
+            db.select(DB.cis_classes.Gehalt.Durchschn_Gehalt)
+                .filter(DB.cis_classes.Gehalt.ID.is_(beruf_gehalt_id))
+        ).scalar()
+    return __limit_score( betrag/__mitarbeiter_gehalt(mb_id)-3)
 
-# def vetternwirtschaft(ID):
-#query_vsnr = "Select Versicherungsnummer from cis where ID = " + ID
-#query_mitarbeiter = "Select from cis where Versicherungsnummer = " + query_vsnr
-#query_eigentuemer = "Select from ext where Versicherungsnummer = " + query_vsnr
-#versicherungsnummer =
-#mitarbeiter = (db.session.execute(db.select(DB.cis_classes.Mitarbeiter.Versicherungsnummer).order_by(DB.ext_classes.Mitarbeiter.ID)).scalar()
-#eigentumer = (db.session.execute(db.select(DB.ext_classes.Eigentuemer.Versicherungsnummer).order_by(DB.ext_classes.Eigentuemer.ID)).scalar()
-#if query_vsnr == 1 in mitarbeiter.Versicherungsnummer = query_vsnr == 1 in eigentuemer.Versicherungsnummer:
-#verdaechtigkeitsgrad += 20
+#region Vetternwirtschaft
+def __versicherungsnummer_mb(mb_id):
+    return db.session.execute(
+        db.select(DB.cis_classes.Mitarbeiter.ID)
+            .filter(DB.cis_classes.Mitarbeiter.ID.is_(mb_id))
+        ).scalar()
+
+def __eigentumer_id_from_mitarbeiter(mb_id):
+    return db.session.execute(
+        db.select(DB.ext_classes.Eigentuemer.ID)
+            .filter(DB.ext_classes.Eigentuemer.Versicherungsnummer.is_(__versicherungsnummer_mb(mb_id)))
+        ).scalar()
+
+def __besitzer_id_from_mitarbeiter(mb_id):
+    return db.session.execute(
+        db.select(DB.ext_classes.Besitzer.ID)
+            .filter(DB.ext_classes.Besitzer.Versicherungsnummer.is_(__versicherungsnummer_mb(mb_id)))
+        ).scalar()
+
+def vetternwirtschaft(mb_id):
+    eigentumer_id = __eigentumer_id_from_mitarbeiter(mb_id)
+    besitzer_id = __besitzer_id_from_mitarbeiter(mb_id)
+    verwandte_eigentuemer = db.session.execute(
+        db.select(DB.ext_classes.Besitzer_Eigentuemer_Verwandschaft.Eigentuemer)
+            .filter(DB.ext_classes.Besitzer_Eigentuemer_Verwandschaft.Besitzer.is_(besitzer_id))
+        ).scalars()
+    verwandte_besitzer = db.session.execute(
+        db.select(DB.ext_classes.Besitzer_Eigentuemer_Verwandschaft.Besitzer)
+            .filter(DB.ext_classes.Besitzer_Eigentuemer_Verwandschaft.Eigentuemer.is_(eigentumer_id))
+        ).scalars()
+    #TODO actual calculation? idk
+    return __limit_score( 20 * (verwandte_eigentuemer.__sizeof__() + verwandte_besitzer.__sizeof__() - 2) )
+#endregion
