@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template
 from flask_bootstrap import Bootstrap5
 from flask_sqlalchemy import SQLAlchemy
 import statistics
@@ -67,7 +67,7 @@ def mitarbeiter_beruf_dif(mb_id):
         ).scalar()
     beruf_gehalt_id = db.session.execute(
             db.select(DB.cis_classes.Beruf.ID)
-                .filter(DB.cis_classes.Mitarbeiter.ID.is_(beruf_id))
+                .filter(DB.cis_classes.Beruf.ID.is_(beruf_id))
         ).scalar()
     beruf_gehalt = db.session.execute(
             db.select(DB.cis_classes.Gehalt.Durchschn_Gehalt)
@@ -79,7 +79,7 @@ def mitarbeiter_beruf_dif(mb_id):
 def mitarbeiter_dif(mb_id):
     betrag = db.session.execute(
             db.select(DB.cis_classes.Gehalt.Durchschn_Gehalt)
-                .filter(DB.cis_classes.Gehalt.ID.is_(beruf_gehalt_id))
+                .filter(DB.cis_classes.Gehalt.ID.is_(0)) #TODO
         ).scalar()
     return __limit_score( betrag/__mitarbeiter_gehalt(mb_id)-3)
 
@@ -102,6 +102,23 @@ def __besitzer_id_from_mitarbeiter(mb_id):
             .filter(DB.ext_classes.Besitzer.Versicherungsnummer.is_(__versicherungsnummer_mb(mb_id)))
         ).scalar()
 
+def vetternwirtschaft_ext(mb_id):
+    eigentumer_id = __eigentumer_id_from_mitarbeiter(mb_id)
+    besitzer_id = __besitzer_id_from_mitarbeiter(mb_id)
+    verwandte_eigentuemer = db.session.execute(
+        db.select(DB.ext_classes.Besitzer_Eigentuemer_Verwandschaft.Eigentuemer)
+            .filter(DB.ext_classes.Besitzer_Eigentuemer_Verwandschaft.Besitzer.is_(besitzer_id))
+        ).scalars()
+    verwandte_besitzer = db.session.execute(
+        db.select(DB.ext_classes.Besitzer_Eigentuemer_Verwandschaft.Besitzer)
+            .filter(DB.ext_classes.Besitzer_Eigentuemer_Verwandschaft.Eigentuemer.is_(eigentumer_id))
+        ).scalars()
+    if not (verwandte_besitzer or verwandte_eigentuemer):
+        return 0
+    
+    return __limit_score( 20 * (verwandte_eigentuemer.__sizeof__() + verwandte_besitzer.__sizeof__() - 2) )
+
+
 def vetternwirtschaft(mb_id):
     eigentumer_id = __eigentumer_id_from_mitarbeiter(mb_id)
     besitzer_id = __besitzer_id_from_mitarbeiter(mb_id)
@@ -113,6 +130,8 @@ def vetternwirtschaft(mb_id):
         db.select(DB.ext_classes.Besitzer_Eigentuemer_Verwandschaft.Besitzer)
             .filter(DB.ext_classes.Besitzer_Eigentuemer_Verwandschaft.Eigentuemer.is_(eigentumer_id))
         ).scalars()
-    #TODO actual calculation? idk
+    if not (verwandte_besitzer or verwandte_eigentuemer):
+        return 0
+    
     return __limit_score( 20 * (verwandte_eigentuemer.__sizeof__() + verwandte_besitzer.__sizeof__() - 2) )
 #endregion

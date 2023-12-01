@@ -1,4 +1,4 @@
-from flask import request
+from flask import request, redirect, url_for
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
@@ -9,21 +9,21 @@ import korruptionspruefung
 
 
 class CreateForm(FlaskForm):
-    Nachname = StringField("Nachname", validators=[DataRequired()])
-    Vorname = StringField("Vorname", validators=[DataRequired()])
-    Projektname = StringField("Projektname", validators=[DataRequired()])
-    Versicherungsnummer = StringField("Versicherungsnummer", validators=[DataRequired()])
-    Mitarbeiter_ID = StringField("Mitarbeiter_ID", validators=[DataRequired()])
-    IBAN = StringField("IBAN", validators=[DataRequired()])
-    submit = SubmitField("Start person search")
-    submit2 = SubmitField("Start project analysis")
+    # Nachname = StringField("Nachname")
+    # Vorname = StringField("Vorname")
+    # Projektname = StringField("Projektname")
+    # Versicherungsnummer = StringField("Versicherungsnummer")
+    Mitarbeiter_ID = StringField("Mitarbeiter-ID", validators=[DataRequired()])
+    # IBAN = StringField("IBAN")
+    submit = SubmitField("Prüfung Starten")
+    # submit2 = SubmitField("Start project analysis")
 
 
 
 @app.route("/")
 def home():
     Beruf = db.session.execute(db.select(DB.cis_classes.Beruf).order_by(DB.cis_classes.Beruf.ID)).scalars()
-    print(header.calculate_mitarbeiter_dif_score(0))
+    print(header.mitarbeiter_beruf_dif(0))
     return render_template("login.html", Beruf=Beruf)
 
 
@@ -36,6 +36,12 @@ def startseite():
 def optionen():
     return render_template("options.html", active_page='optionen')
 
+class resultat():
+    def __init__(self):
+        self.mitarbeiter_beruf_dif = 0
+        self.mitarbeiter_dif = 0
+        self.vetternwirtschaft = 0
+        self.projekt = 0
 
 @app.route("/resultatseite")
 def resultatseite():
@@ -46,11 +52,26 @@ def resultatseite():
 def suche():
     form = CreateForm()
     if form.validate_on_submit():
-        Nachname = form.Nachname.data
-        Vorname = form.Vorname.data
+        Mitarbeiter_ID = form.Mitarbeiter_ID.data
 
-        print(Nachname)
-        print(Vorname)
+        #Suche nach Mitarbeiter_ID
+        mb_id = db.session.execute(
+            db.select(DB.cis_classes.Mitarbeiter.ID)
+            .filter(DB.cis_classes.Mitarbeiter.ID.is_(Mitarbeiter_ID))
+        ).scalar()
+
+        #TODO Projekt ermitteln
+
+        if mb_id is None:
+            return render_template("searchMenu.html", active_page='suche', form=form)
+
+        r = resultat()
+        r.mitarbeiter_beruf_dif = header.mitarbeiter_beruf_dif(mb_id)
+        r.mitarbeiter_dif = header.mitarbeiter_dif(mb_id)
+        r.vetternwirtschaft = 0
+        r.projekt = 0
+
+        return render_template("resultatseite.html", active_page='resultatseite', r=r)
 
     return render_template("searchMenu.html", active_page='suche', form=form)
 
