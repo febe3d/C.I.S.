@@ -6,7 +6,7 @@ def __number_is_in(allowed_value, margin, check_value):
     return bool(check_value >= (allowed_value - margin)) & bool(check_value <= (allowed_value + margin))
 #variablen
 def __projektpruefung_logik(budget_geplant, budget_eingetroffen, frist_ablaufdatum):
-    first_abgelaufen_seit = 0 # TODO    
+    first_abgelaufen_seit = 0 # TODO
     budget_eingetroffen_prozent = (budget_eingetroffen / budget_geplant)
     budget_margin_percent = 0.025
 #pruefung
@@ -30,9 +30,6 @@ def projektpruefung_mit_sql(projektname):
     budget_geplant = getattr(result, 'Eingeplantes_Budget')
     budget_eingetroffen = getattr(result, 'Eingetroffenes_Budget')
     frist_ablaufdatum = getattr(result, 'Datum_Geldeingang')
-    print(budget_geplant)
-    print(budget_eingetroffen)
-    print(frist_ablaufdatum)
     return __projektpruefung_logik(budget_geplant, budget_eingetroffen, frist_ablaufdatum)
 
 
