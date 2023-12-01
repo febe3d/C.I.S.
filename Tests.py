@@ -32,10 +32,9 @@ test_all()
 # Wir programmieren die Funktionen zur Korruptionsprüfung 
 # SQL Abfragen für die Korruptionsprüfungen werden in der header.py definiert und dann in der tets.py getestet & dann un der korruptionspruefung.py genutzt
 # JG: Projekt
-# TOM: Mitarbeiter Gehalt
-# TOM: Wir gucken in der Tabelle Beruf, wo der Beruf gleich ist, gucken ob das Gehalt extrem unterschiedlich ist. 
-# TOM: -> Ab wie viel Prozentgehaltsunterschied ist es komisch. 
-# RObbin: Vetternwirtschaft
-# JONAS: Geldfluß 
+# TB: Mitarbeiter Gehalt
+# TB: Wir gucken in der Tabelle Beruf, wo der Beruf gleich ist, gucken ob das Gehalt extrem unterschiedlich ist. Ab wie viel Prozentgehaltsunterschied ist es komisch. 
+# RC: Vetternwirtschaft
+# JB: Geldfluß 
 
 # Überprüfen ob das Fahrzeug (z.B. Boot -> Boot -> Wert) mit dem Gehalt des Fahrzeugbesitzers übereinstimmen kann.

@@ -5,6 +5,7 @@ from wtforms.validators import DataRequired
 import requests
 import header
 from header import app, db, DB, render_template
+import korruptionspruefung
 
 
 class CreateForm(FlaskForm):
@@ -22,7 +23,8 @@ class CreateForm(FlaskForm):
 @app.route("/")
 def home():
     Beruf = db.session.execute(db.select(DB.cis_classes.Beruf).order_by(DB.cis_classes.Beruf.ID)).scalars()
-    return render_template("resultatseite.html", Beruf=Beruf)
+    print(header.calculate_mitarbeiter_dif_score(0))
+    return render_template("login.html", Beruf=Beruf)
 
 
 @app.route("/startseite")
