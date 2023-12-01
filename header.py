@@ -11,3 +11,19 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///cisdb.db'
 app.config['SQLALCHEMY_BINDS'] = {'extern' : 'sqlite:///dbext.db',}
 db = SQLAlchemy()
 db.init_app(app)
+
+def geldfluss():
+    verwendungszwecke = db.session.execute(
+        db.select(DB.cis_classes.Geldfluss.Verwendungszweck).order_by(DB.cis_classes.Geldfluss.ID)).scalars()
+    verdächtig = ["Neue Werkzeuge", "Diebstahl", "Steuerhinterziehung"]
+    for zweck in verwendungszwecke:
+
+        if zweck in verdächtig:
+            print("Aha " + zweck)
+    empfanger = db.session.execute(
+        db.select(DB.cis_classes.Geldfluss.EmpfaengerKonto).order_by(DB.cis_classes.Geldfluss.ID)).scalars()
+    verdächtige = [1, 666, 69]
+    for verdächtiger in empfanger:
+
+        if verdächtiger in verdächtige:
+            print("Aha " + str(verdächtiger))
