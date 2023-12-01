@@ -1,3 +1,5 @@
 /.venv
 /instance/dbext.db
 /instance/cisdb.db
+/__pycache__/
+/DB/__pycache__/
