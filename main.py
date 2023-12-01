@@ -4,11 +4,10 @@ from wtforms.validators import DataRequired
 import requests
 import header
 from header import app, db, DB, render_template
+import korruptionspruefung
 
 @app.route("/")
 def home():
-    print(db.session.execute(db.select(DB.cis_classes.Beruf).order_by(DB.cis_classes.Beruf.ID)).scalar())
-    print(db.session.execute(db.select(DB.ext_classes.Eigentuemer).order_by(DB.ext_classes.Eigentuemer.ID)).scalar())
     Beruf = db.session.execute(db.select(DB.cis_classes.Beruf).order_by(DB.cis_classes.Beruf.ID)).scalars()
     return render_template("resultatseite.html", Beruf=Beruf)
 

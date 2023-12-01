@@ -11,11 +11,11 @@ VALUES
 	( 3, 'Klaus', 'Becker', '01234567A893');
 
 INSERT INTO Besitzer ( ID, Vorname, Nachname, Besitzbeginn, Versicherungsnummer)
-VALUES 	( 1, 'Max', 'Mustermann', '24.04.2023', '01234567A896');
+VALUES 	( 1, 'Max', 'Mustermann', '2000-05-19', '01234567A896');
 INSERT INTO Besitzer ( ID, Vorname, Nachname, Besitzbeginn, Besitzende, Versicherungsnummer)
 VALUES 
-	( 2, 'Susanne', 'Müller', '19.05.1999', '20.05.2020', '01234567A890'),
-	( 3, 'Klaus', 'Becker', '20.05.2020', '23.11.2023', '01234567A891');
+	( 2, 'Susanne', 'Müller', '1999-05-19', '2022-05-19', '01234567A890'),
+	( 3, 'Klaus', 'Becker', '1999-05-19', '2010-08-19', '01234567A891');
 
 INSERT INTO Besitzer_Eigentuemer_Verwandschaft ( Besitzer, Eigentuemer )
 VALUES 
