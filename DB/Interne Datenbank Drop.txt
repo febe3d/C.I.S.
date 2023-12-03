@@ -1,0 +1,9 @@
+DROP TABLE Verwandschaft;
+DROP TABLE Gehaltbestimmung;
+DROP TABLE Mitarbeiter;
+DROP TABLE Beruf;
+DROP TABLE Projekt;
+DROP TABLE Geldfluss;
+DROP TABLE Konto;
+DROP TABLE KontoInhaber;
+DROP TABLE Gehalt;

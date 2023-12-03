@@ -2,19 +2,26 @@ INSERT INTO Gehalt(ID, Durchschn_Gehalt, Durchschn_Boni)
 VALUES
     (0, 200000, 0),
     (1, 1000, 2000),
-    (2, 50000, 4000);
+    (2, 50000, 4000),
+    (3, 45000, 4000),
+    (4, 60000, 4000),
+    (5, 55000, 4000),
+    (6, 500000, 4000),
+    (7, 520000, 4000);
 
 INSERT INTO KontoInhaber(ID, Vorname, Nachname)
 VALUES
 	(0, 'mMax', 'Musterman'),
 	(1, 'fMax', 'Musterfrau'),
 	(2, 'Unknown', 'Unknown');
+	(3, 'The', 'Joker');
 
 INSERT INTO Konto(ID, Inhaber, Kontotyp, Kontonummer, Land, IBAN, Betrag)
 VALUES
 	(0, 0, 'TestKonto0', '111', 'DEU', 'DE07123412341234123412', 0.10),
 	(1, 1, 'TestKonto1', '333', 'ENG', 'DE07123412341234123413', 0),
-	(2, 2, 'TestKonto2', '555', 'UK', 'DE07123412341234123414', 1);
+	(2, 2, 'TestKonto2', '555', 'UK', 'DE07123412341234123414', 1),
+	(3, 3, 'TestKonto3', '123', 'SWE', 'DE07123412341234123415', 12);
 
 INSERT INTO Geldfluss(ID, Verwendungszweck, Waehrung, EmpfaengerKonto, AufraggeberKonto, Betrag)
 VALUES 
@@ -32,13 +39,15 @@ INSERT INTO Beruf(ID, Gehalt, Berufname)
 VALUES
     (0, 0, 'externe Beratung'),
     (1, 1, 'Anwalt'),
-    (2, 2, 'FIAE');
+    (2, 2, 'FIAE'),
+    (3, 6, 'Einzelhandelskauffrau');
 
 INSERT INTO Mitarbeiter(ID, Beruf, Projekzugehoerigkeit, KontoInhaber, Gehalt, Versicherungsnummer)
 VALUES
-    (0, 2, 1, 2, 0, '01234567A891'),
-    (1, 1, 2, 1, 2, '01234567A892'),
-    (2, 0, 0, 0, 1, '01234567A899');
+    (0, 2, 1, 2, 3, '01234567A891'),
+    (1, 1, 2, 1, 4, '01234567A892'),
+    (2, 0, 0, 0, 5, '01234567A899'),
+    (3, 3, 0, 3, 7, '01234567A899');
 
 INSERT INTO Verwandschaft(Verwandschaft1, Verwandschaft2)
 VALUES

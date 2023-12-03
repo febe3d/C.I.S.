@@ -57,7 +57,7 @@ def mitarbeiter_dif(mb_id):
                 .where(DB.cis_classes.Gehalt.ID.in_(alle_mit_beruf_gehalt_ids))
         ).scalars()
     average_beruf = statistics.mean([float(gehalt) for gehalt in alle_gehaelter_beruf])
-    return __limit_score( 40*(__mitarbeiter_gehalt(mb_id)/average_beruf) -0.5)
+    return __limit_score( 40*((__mitarbeiter_gehalt(mb_id)/average_beruf) -1.5))
 
 def mitarbeiter_beruf_dif(mb_id):
     #Beruf Gehalt ermitteln
@@ -75,13 +75,6 @@ def mitarbeiter_beruf_dif(mb_id):
         ).scalar()
     
     return __limit_score( 40*(__mitarbeiter_gehalt(mb_id)/beruf_gehalt) -0.5)
-    
-def mitarbeiter_dif(mb_id):
-    betrag = db.session.execute(
-            db.select(DB.cis_classes.Gehalt.Durchschn_Gehalt)
-                .filter(DB.cis_classes.Gehalt.ID.is_(0)) #TODO
-        ).scalar()
-    return __limit_score( betrag/__mitarbeiter_gehalt(mb_id)-3)
 
 #region Vetternwirtschaft
 def __versicherungsnummer_mb(mb_id):

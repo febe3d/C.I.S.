@@ -22,9 +22,7 @@ class CreateForm(FlaskForm):
 
 @app.route("/")
 def home():
-    Beruf = db.session.execute(db.select(DB.cis_classes.Beruf).order_by(DB.cis_classes.Beruf.ID)).scalars()
-    print(header.mitarbeiter_beruf_dif(0))
-    return render_template("login.html", Beruf=Beruf)
+    return render_template("login.html")
 
 
 @app.route("/startseite")
