@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 import statistics
 import DB.cis_classes
 import DB.ext_classes
-
+# TODO kann man die sql befehle schöner machen?
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
 Bootstrap5(app)
@@ -13,21 +13,19 @@ app.config['SQLALCHEMY_BINDS'] = {'extern' : 'sqlite:///dbext.db',}
 db = SQLAlchemy()
 db.init_app(app)
 
-def geldfluss():
+def geldfluss(): # TODO resultat? die funk gibt nix zurück, sie printed nur zur konsole. die konsole sieht der anwender nicht
     verwendungszwecke = db.session.execute(
         db.select(DB.cis_classes.Geldfluss.Verwendungszweck).order_by(DB.cis_classes.Geldfluss.ID)).scalars()
     verdächtig = ["Neue Werkzeuge", "Diebstahl", "Steuerhinterziehung"]
     for zweck in verwendungszwecke:
-
         if zweck in verdächtig:
-            print("Aha " + zweck)
+            print("Aha " + zweck)# TODO still needed?
     empfanger = db.session.execute(
         db.select(DB.cis_classes.Geldfluss.EmpfaengerKonto).order_by(DB.cis_classes.Geldfluss.ID)).scalars()
     verdächtige = [1, 666, 69]
     for verdächtiger in empfanger:
-
         if verdächtiger in verdächtige:
-            print("Aha " + str(verdächtiger))
+            print("Aha " + str(verdächtiger))# TODO still needed?
 
 def __limit_score(score):
     return min(100, max(0, score))
@@ -76,7 +74,7 @@ def mitarbeiter_beruf_dif(mb_id):
     
     return __limit_score( 40*(__mitarbeiter_gehalt(mb_id)/beruf_gehalt) -0.5)
 
-#region Vetternwirtschaft
+# Vetternwirtschaft
 def __versicherungsnummer_mb(mb_id):
     return db.session.execute(
         db.select(DB.cis_classes.Mitarbeiter.ID)
@@ -111,7 +109,6 @@ def vetternwirtschaft_ext(mb_id):
     
     return __limit_score( 20 * (verwandte_eigentuemer.__sizeof__() + verwandte_besitzer.__sizeof__() - 2) )
 
-
 def vetternwirtschaft(mb_id):
     eigentumer_id = __eigentumer_id_from_mitarbeiter(mb_id)
     besitzer_id = __besitzer_id_from_mitarbeiter(mb_id)
@@ -127,4 +124,3 @@ def vetternwirtschaft(mb_id):
         return 0
     
     return __limit_score( 20 * (verwandte_eigentuemer.__sizeof__() + verwandte_besitzer.__sizeof__() - 2) )
-#endregion

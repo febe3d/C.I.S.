@@ -1,5 +1,22 @@
 import sqlite3
 import header
+import korruptionspruefung
+
+def __testProjektpruefung():
+     # alles ist da
+    assert(korruptionspruefung.__projektpruefung_logik(100, 100, 0) == 0)
+    # es ist viel zu viel Geld da
+    assert(korruptionspruefung.__projektpruefung_logik(100, 200, 0) == 100)
+    # nichts ist eingetroffen 2 Tage nach Ablauf der Frist
+    assert(korruptionspruefung.__projektpruefung_logik(100, 0, 2) == 100)
+    # nichts ist eingetroffen 1 Tage nach Ablauf der Frist
+    assert(korruptionspruefung.__projektpruefung_logik(100, 0, 1) == 85)
+    # die Frist ist vor kurzem abgelaufen &  mindestens 25% des Geldes fehlen
+    assert(korruptionspruefung.__projektpruefung_logik(100, 15, 4) == 95)
+    # die Frist ist vor kurzem abgelaufen & : # weniger als 25% des Geldes fehlen
+    assert(korruptionspruefung.__projektpruefung_logik(100, 90, 4) == 50)
+    # Frist ist vor längerer Zeit abgelaufen und es fehlt Geld
+    assert(korruptionspruefung.__projektpruefung_logik(100, 75, 10) == 100)
 
 class colors:
     RED = '\033[91m'
@@ -8,8 +25,8 @@ class colors:
 
 def test_db_connection():
     b_succ = True
-    db_intern = 'instance/cisdb.db'
-    db_extern = 'instance/dbext.db'
+    db_intern = 'instance/cisdb.db' # TODO what for?
+    db_extern = 'instance/dbext.db'# TODO what for?
     try:
         sqlite3.connect('file:instance/cisdb.db?mode=rw', uri=True) 
         sqlite3.connect('file:instance/dbext.db?mode=rw', uri=True)
@@ -34,6 +51,7 @@ def test_mb_gehalt():
         & (header.mitarbeiter_dif(2) == 0)
         & (header.mitarbeiter_dif(3) == 0)
         )
+    # TODO delete print?
     # print("mitarbeiter_beruf_dif(0) = " + str(header.mitarbeiter_beruf_dif(0)))
     # print("mitarbeiter_beruf_dif(1) = " + str(header.mitarbeiter_beruf_dif(1)))
     # print("mitarbeiter_beruf_dif(2) = " + str(header.mitarbeiter_beruf_dif(2)))
@@ -62,16 +80,7 @@ def home():
     test_all()
     return header.render_template("login.html")
 
+__testProjektpruefung()
+
 if __name__ == '__main__':
     header.app.run(debug=True)
-
-
-# Wir programmieren die Funktionen zur Korruptionsprüfung 
-# SQL Abfragen für die Korruptionsprüfungen werden in der header.py definiert und dann in der tets.py getestet & dann un der korruptionspruefung.py genutzt
-# JG: Projekt
-# TB: Mitarbeiter Gehalt
-# TB: Wir gucken in der Tabelle Beruf, wo der Beruf gleich ist, gucken ob das Gehalt extrem unterschiedlich ist. Ab wie viel Prozentgehaltsunterschied ist es komisch. 
-# RC: Vetternwirtschaft
-# JB: Geldfluß 
-
-# Überprüfen ob das Fahrzeug (z.B. Boot -> Boot -> Wert) mit dem Gehalt des Fahrzeugbesitzers übereinstimmen kann.
