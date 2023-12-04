@@ -30,7 +30,7 @@ def projektpruefung_mit_sql(projektid):
     date_format = "%Y-%M-%d"
     budget_geplant = float(getattr(result, 'Eingeplantes_Budget'))
     budget_eingetroffen = float(getattr(result, 'Eingetroffenes_Budget'))
-    first_abgelaufen_seit = datetime.now() - datetime.strptime(getattr(result, 'Datum_Geldeingang'), date_format)
+    first_abgelaufen_seit = datetime.now().date() - getattr(result, 'Datum_Geldeingang')
     return __projektpruefung_logik(budget_geplant, budget_eingetroffen, first_abgelaufen_seit)
 
 def __limit_score(score):

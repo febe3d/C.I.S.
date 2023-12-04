@@ -35,7 +35,7 @@ def __getResult(Mitarbeiter_ID):
         r.mitarbeiter_dif = korruptionspruefung.mitarbeiter_dif(mb_id)
         r.vetternwirtschaft = 0
         #TODO can i gve string here?
-        r.projekt = korruptionspruefung.projektpruefung_mit_sql(projekt_id) if len(projekt_id) > 0 else 'Kein Projekt'
+        r.projekt = 'Kein Projekt' if projekt_id is None else korruptionspruefung.projektpruefung_mit_sql(projekt_id)
         return r
 
 
