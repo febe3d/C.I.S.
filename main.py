@@ -31,8 +31,8 @@ def __getResult(Mitarbeiter_ID):
             return None
 
         r = resultat()
-        r.mitarbeiter_beruf_dif = header.mitarbeiter_beruf_dif(mb_id)
-        r.mitarbeiter_dif = header.mitarbeiter_dif(mb_id)
+        r.mitarbeiter_beruf_dif = korruptionspruefung.mitarbeiter_beruf_dif(mb_id)
+        r.mitarbeiter_dif = korruptionspruefung.mitarbeiter_dif(mb_id)
         r.vetternwirtschaft = 0
         #TODO can i gve string here?
         r.projekt = korruptionspruefung.projektpruefung_mit_sql(projekt_id) if len(projekt_id) > 0 else 'Kein Projekt'
